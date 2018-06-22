@@ -14,14 +14,23 @@
 
 <script>
 import HelloWorld from './components/HelloWorld'
-
+import Store from './store.js'
+console.log(Store)
 export default {
   name: 'App',
   data (){
     return {
       msg: 'this is my first vue',
-      lists: [],
+      lists: Store.fetch(),
       newItem:""
+    }
+  },
+  watch:{
+    lists:{
+      handler:function(lists){
+        Store.save(lists)
+      },
+      deep:true //深层赋值
     }
   },
   methods:{
@@ -29,7 +38,6 @@ export default {
       list.isFinished=!list.isFinished
     },
     addNew:function(){
-      console.log(this.newItem),
         this.lists.push({
           label:this.newItem,
           isFinished:false,
