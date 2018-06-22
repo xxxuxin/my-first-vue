@@ -8,7 +8,8 @@
         {{list.label}}
       </li>
     </ul>
-    <HelloWorld/>
+    <p>tell me:{{herwords}}</p>
+    <HelloWorld fathermsg="i love you" v-on:tell-me="listentoher"></HelloWorld>
   </div>
 </template>
 
@@ -16,13 +17,15 @@
 import HelloWorld from './components/HelloWorld'
 import Store from './store.js'
 console.log(Store)
+
 export default {
   name: 'App',
   data (){
     return {
       msg: 'this is my first vue',
       lists: Store.fetch(),
-      newItem:""
+      newItem:"",
+      herwords:''
     }
   },
   watch:{
@@ -43,8 +46,11 @@ export default {
           isFinished:false,
         })
       this.newItem=""
+      },
+    listentoher:function(msga){
+      this.herwords=msga
     }
-  },
+    },
   components: {
     HelloWorld
   }
